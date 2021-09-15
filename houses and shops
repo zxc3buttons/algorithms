@@ -1,0 +1,47 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        int max = 0;
+        int left = -1;
+        int right = -1;
+        int[] a = new int[10];
+
+        for(int i = 0; i < 10; i++) {
+
+            a[i] = scanner.nextInt();
+
+            if(a[i] == 2 && left == -1) left = i;
+
+            if(a[i] == 2 && left != i && right == -1) {
+                right = i;
+            }
+        }
+
+        for(int i = 0; i < 10; i++) {
+            int min;
+
+            if(a[i] == 1) {
+                if(Math.abs(i - right) < Math.abs(i - left) && right > -1) min = Math.abs(i - right);
+                else min = Math.abs(i - left);
+                if(min > max) max = min;
+            }
+
+            if(a[i] == 2 && i == right) {
+                for(int j = i + 1; j < 10; j++) {
+                    if(a[j] == 2) {
+                        left = right;
+                        right = j;
+                        break;
+                    }
+                }
+            }
+
+        }
+        System.out.println(max);
+    }
+}
